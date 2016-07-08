@@ -42,7 +42,6 @@ describe('DNS Client', function () {
 	describe('getDomain', function () {
 		it('Should return a domain', function (done) {
 			client.getDomain('example.com', function (err, domain) {
-				console.log(domain);
 				Chai.expect(err).to.not.exist;
 				Chai.expect(domain, 'an object').to.be.an('object');
 				Chai.expect(domain, 'with properties').to.have.all.keys('domainId', 'domain', 'status', 'expires');
@@ -52,26 +51,32 @@ describe('DNS Client', function () {
 	});
 
 	describe("getRecords", function () {
-		it("Should be able to return an array of records", function () {
-			var hosts = client.getRecords();
-			Chai.expect(hosts, "Hosts").to.be.an('Array');
-			Chai.expect(hosts, 'Hosts to not be empty').to.not.be.empty;
+		it("Should be able to return an array of records", function (done) {
+			client.getRecords('example.com', function (err, records) {
+				Chai.expect(records, "Records").to.be.an('Array');
+				Chai.expect(records, 'Records to not be empty').to.not.be.empty;
+				done();
+			});
 		});
 	});
 
 	describe("getRecordsByType", function () {
-		it("Should be able to return an array of records", function () {
-			var records = client.getRecordsByType('A');
-			Chai.expect(records, "Records").to.be.an('Array');
-			Chai.expect(records, 'Records to not be empty').to.not.be.empty;
+		it("Should be able to return an array of records", function (done) {
+			var records = client.getRecordsByType('example.com', 'A', function (err, records) {
+				Chai.expect(records, "Records").to.be.an('Array');
+				Chai.expect(records, 'Records to not be empty').to.not.be.empty;
+				done();
+			});
 		});
 	});
 
 	describe('getRecord', function () {
-		it('Should be able to return a record', function () {
-			var record = client.getRecord('example.com');
-			Chai.expect(record, 'Record').to.be.an('object');
-			Chai.expect(record, 'with properties').to.have.all.keys("type", "name", "data", "priority", "ttl", "service", "protocol", "port", "weight")
+		it('Should be able to return a record', function (done) {
+			var record = client.getRecord('example.com', 'A', '@', function (err, record) {
+				Chai.expect(record, 'Record').to.be.an('object');
+				Chai.expect(record, 'with properties').to.have.all.keys("type", "name", "data", "priority", "ttl", "service", "protocol", "port", "weight")
+				done();
+			});
 		});
 	});
 });
