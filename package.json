@@ -4,6 +4,7 @@
   "description": "DNS module for GoDaddy",
   "main": "./lib/index.js",
   "scripts": {
+    "cover": "istanbul cover _mocha -- test/unit/ -R spec",
     "test": "mocha test/unit/*.test.js"
   },
   "repository": {
@@ -21,7 +22,11 @@
   },
   "homepage": "https://github.com/Ajohn2550/gd-dns#readme",
   "devDependencies": {
+    "chai": "^3.5.0",
     "istanbul": "^0.4.4",
     "mocha": "^2.5.3"
+  },
+  "dependencies": {
+    "request": "^2.72.0"
   }
 }
