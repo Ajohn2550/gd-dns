@@ -4,7 +4,7 @@
   "description": "DNS module for GoDaddy",
   "main": "./lib/index.js",
   "scripts": {
-    "cover": "istanbul cover _mocha -- test/unit/ -R spec",
+    "cover": "istanbul cover _mocha -- test/unit/",
     "test": "mocha test/unit/*.test.js"
   },
   "repository": {
